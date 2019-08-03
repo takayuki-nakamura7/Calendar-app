@@ -1,11 +1,42 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import { createStore } from 'redux'
+import rootReducer from './reducers'
+
+
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const store = createStore(rootReducer)
+
+// ReactDOM.render(<App store={store} />, document.getElementById('root'));
+
+
+
+const render = () => {
+    ReactDOM.render(
+        <App store={store} />,
+        document.getElementById('root')
+    )
+}
+
+store.subscribe(() => {
+    render()
+    console.log(store.getState().form)   // 動作確認のためコンソール出力
+})
+render()
+
+
+
+
+
+
+
+
+
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+
+// serviceWorker.unregister();

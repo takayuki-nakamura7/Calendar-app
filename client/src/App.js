@@ -1,6 +1,8 @@
 import React from "react";
 
 import Calendar from "./Components/Calendar/Calendar";
+import BmrForm from "./Components/BmrForm";
+// import CurrentBmr from "./Components/CurrentBmr";
 
 import "./App.css";
 
@@ -9,12 +11,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <header>
-          <div id="logo">
-            <span className="icon">date_range</span>
-            <span>
-              react<b>calendar</b>
-            </span>
-          </div>
+          <BmrForm store={this.props.store} />
         </header>
         <main>
           <Calendar />
