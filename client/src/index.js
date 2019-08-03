@@ -5,7 +5,7 @@ import { createStore } from 'redux'
 import rootReducer from './reducers'
 
 
-import * as serviceWorker from './serviceWorker';
+// import * as serviceWorker from './serviceWorker';
 
 const store = createStore(rootReducer)
 
@@ -22,7 +22,7 @@ const render = () => {
 
 store.subscribe(() => {
     render()
-    console.log(store.getState().form)   // 動作確認のためコンソール出力
+
 })
 render()
 

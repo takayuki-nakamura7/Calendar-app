@@ -58,10 +58,10 @@ export default class Calendar extends React.Component {
         let days = [];
         let day = startDate;
         let formattedDate = "";
-        console.log(monthEnd)
-        console.log(endDate)
-        console.log(startDate)
-        console.log(monthStart)
+        // console.log(monthEnd)
+        // console.log(endDate)
+        // console.log(startDate)
+        // console.log(monthStart)
 
         while (day <= endDate) {
             for (let i = 0; i < 7; i++) {

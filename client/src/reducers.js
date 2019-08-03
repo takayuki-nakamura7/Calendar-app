@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux'
-import { CHANGE_AGE, CHANGE_HEIGHT, CHANGE_WEIGHT, CHANGE_SEX, INITIALIZE_FORM } from './actions'
+import {
+    CHANGE_AGE, CHANGE_HEIGHT, CHANGE_WEIGHT, CHANGE_SEX, INITIALIZE_FORM, REQUEST_DATA, RECEIVE_DATA_SUCCESS, RECEIVE_DATA_FAILED
+} from './actions'
 
 const initialState = {
     bmrForm: {  // AddFormに入力されている文字列
@@ -8,9 +10,9 @@ const initialState = {
         weight: '',
         sex: '',
     },
-    currentBmr: {
+    bmr: {
         isFetching: false,  // サーバーから情報を取ってきている最中かどうか
-        currentBmr: '',
+        currentBmr: [],
     },
     // dailyCal: {
     //     protein: '',
@@ -43,13 +45,29 @@ const bmrFormReducer = (state = initialState.bmrForm, action) => {
                 sex: action.sex,
             }
         case INITIALIZE_FORM:
-            return initialState.form
+            return initialState.bmrForm
         default:
             return state
     }
 }
-const currentBmrReducer = (state = initialState.currentBmr, action) => {
+const currentBmrReducer = (state = initialState.bmr, action) => {
     switch (action.type) {
+        case REQUEST_DATA:
+            return {
+                ...state,
+                isFetching: true,
+            }
+        case RECEIVE_DATA_SUCCESS:
+            return {
+                ...state,
+                isFetching: false,
+                currentBmr: action.currentBmr,
+            }
+        case RECEIVE_DATA_FAILED:
+            return {
+                ...state,
+                isFetching: false,
+            }
         default:
             return state
     }
