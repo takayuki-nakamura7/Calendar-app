@@ -16,6 +16,7 @@ const DisplayBmr = ({ store }) => {
                     : <div>
                         <label>
                             {currentBmr}
+
                         </label>
                     </div>
             }

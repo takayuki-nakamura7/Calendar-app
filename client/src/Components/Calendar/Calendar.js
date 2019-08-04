@@ -58,10 +58,7 @@ export default class Calendar extends React.Component {
         let days = [];
         let day = startDate;
         let formattedDate = "";
-        // console.log(monthEnd)
-        // console.log(endDate)
-        // console.log(startDate)
-        // console.log(monthStart)
+
 
         while (day <= endDate) {
             for (let i = 0; i < 7; i++) {
@@ -72,7 +69,7 @@ export default class Calendar extends React.Component {
                         className={`col cell ${ // $ sign is ES6 feature. it's same as 'col sell' + ~~.
                             !dateFns.isSameMonth(day, monthStart) // If day isn't in the currentMonth, it sets the class 'disabled'.
                                 ? "disabled"
-                                : dateFns.isSameDay(day, selectedDate) ? "selected" : "" // If day is the same dau as selectedDate, it sets 'selected' class.
+                                : dateFns.isSameDay(day, selectedDate) ? "selected" : "" // If day is the same day as selectedDate, it sets 'selected' class.
                             }`}
                         key={day}
                         onClick={() => this.onDateClick(dateFns.parse(cloneDay))}
@@ -92,7 +89,6 @@ export default class Calendar extends React.Component {
             days = [];
         }
         return <div className="body">{rows}</div>;
-
     }
 
     onDateClick = day => {
@@ -111,6 +107,9 @@ export default class Calendar extends React.Component {
             currentMonth: dateFns.subMonths(this.state.currentMonth, 1)
         });
     };
+
+
+
 
     render() {
         return (

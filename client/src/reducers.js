@@ -13,9 +13,9 @@ const initialState = {
     },
     bmr: {
         isFetching: false,  // サーバーから情報を取ってきている最中かどうか
-        currentBmr: 1,
+        currentBmr: false,
     },
-
+    dailycal: true
 }
 
 const bmrFormReducer = (state = initialState.bmrForm, action) => {
@@ -58,7 +58,7 @@ const currentBmrReducer = (state = initialState.bmr, action) => {
             return {
                 ...state,
                 isFetching: false,
-                currentBmr: action.currentBmr.bmrResult,
+                currentBmr: action.currentBmr,
             }
         case RECEIVE_DATA_FAILED:
             return {
