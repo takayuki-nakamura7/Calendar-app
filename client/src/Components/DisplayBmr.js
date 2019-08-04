@@ -14,10 +14,7 @@ const DisplayBmr = ({ store }) => {
                 isFetching  // isFetchingの値で分岐
                     ? <h2>Now Loading...</h2>  // データをFetch中ならばローディングアイコンを表示
                     : <div>
-                        <label>
-                            {currentBmr}
-
-                        </label>
+                        <p className="currentBmr">あなたの基礎代謝は<span>{currentBmr}kcal</span>です。</p>
                     </div>
             }
         </div>

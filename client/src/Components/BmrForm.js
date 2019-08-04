@@ -63,58 +63,53 @@ const BmrForm = ({ store }) => {
             })
     }
 
+    const closeButton = e => {
+        document.getElementById("calorieTable").style.display = "none";
+        document.getElementById("masking").style.display = "none";
+    }
+
+    const openButton = e => {
+        document.getElementById("calorieTable").style.display = "block";
+        document.getElementById("masking").style.display = "block";
+    }
+
 
     return (
         <div>
             {currentBmr === false ?
+                <div><p className="clickText">基礎代謝を測るにはこのボタンをクリックしてください。</p>
+                    <button onClick={e => openButton(e.target.value)}> クリック </button>
+                </div> :
+                ''
+            }
+            <div className="masking" id="masking" onClick={e => closeButton(e.target.value)}></div>
+            <div className="calorieTable" id="calorieTable">
+                <div className="closeButton" id="closeButton">
+                    <i onClick={e => closeButton(e.target.value)} className="fas fa-times"></i>
+                </div>
                 <form onSubmit={e => handleSubmit(e)}>
-                    <label>
+                    <label className="height">
                         身長:
-                    <input value={height} onChange={e => store.dispatch(changeHeight(e.target.value))} />
                     </label>
-                    <label>
+                    <input type="number" min="0" value={height} onChange={e => store.dispatch(changeHeight(e.target.value))} />cm
+                    <label className="age">
                         年齢:
-                    <input value={age} onChange={e => store.dispatch(changeAge(e.target.value))} />
                     </label>
-                    <label>
+                    <input type="number" min="0" value={age} onChange={e => store.dispatch(changeAge(e.target.value))} />歳
+                    <label className="weight">
                         体重:
-                    <input value={weight} onChange={e => store.dispatch(changeWeight(e.target.value))} />
                     </label>
-                    <label>
+                    <input type="number" min="0" value={weight} onChange={e => store.dispatch(changeWeight(e.target.value))} />kg
+                    <label className="sex">
                         性別:
-                    <label>男性
-                        <input type="radio" name="sex" id="man" value='man' onChange={e => store.dispatch(changeSex(e.target.value))} />
                         </label>
-                        <label>女性
-                        <input type="radio" name="sex" id="woman" value='woman' onChange={e => store.dispatch(changeSex(e.target.value))} />
-                        </label>
-                    </label>
-                    {currentBmr === false ? <button type="submit">基礎代謝を計算</button> : <button>基礎代謝を変更</button>}
-                </form> :
-                <form onSubmit={e => handleSubmitToEdit(e)}>
-                    <label>
-                        身長:
-                    <input value={height} onChange={e => store.dispatch(changeHeight(e.target.value))} />
-                    </label>
-                    <label>
-                        年齢:
-                    <input value={age} onChange={e => store.dispatch(changeAge(e.target.value))} />
-                    </label>
-                    <label>
-                        体重:
-                    <input value={weight} onChange={e => store.dispatch(changeWeight(e.target.value))} />
-                    </label>
-                    <label>
-                        性別:
-                    <label>男性
-                        <input type="radio" name="sex" id="man" value='man' onChange={e => store.dispatch(changeSex(e.target.value))} />
-                        </label>
-                        <label>女性
-                        <input type="radio" name="sex" id="woman" value='woman' onChange={e => store.dispatch(changeSex(e.target.value))} />
-                        </label>
-                    </label>
-                    <button type="submit">変更</button>
-                </form>}
+
+                    <input type="radio" name="sex" id="man" value='man' onChange={e => store.dispatch(changeSex(e.target.value))} />男性
+
+                    <input type="radio" name="sex" id="woman" value='woman' onChange={e => store.dispatch(changeSex(e.target.value))} />女性
+                    <button onClick={e => closeButton(e.target.value)} type="submit">基礎代謝を計算</button>
+                </form>
+            </div>
 
 
         </div>
