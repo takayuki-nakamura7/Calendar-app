@@ -3,8 +3,9 @@ import {
     CHANGE_AGE, CHANGE_HEIGHT, CHANGE_WEIGHT, CHANGE_SEX, INITIALIZE_FORM, REQUEST_DATA, RECEIVE_DATA_SUCCESS, RECEIVE_DATA_FAILED
 } from './actions'
 
+
 const initialState = {
-    bmrForm: {  // AddFormに入力されている文字列
+    bmrForm: {  // BmrFormに入力されている文字列
         height: '',
         age: '',
         weight: '',
@@ -12,14 +13,9 @@ const initialState = {
     },
     bmr: {
         isFetching: false,  // サーバーから情報を取ってきている最中かどうか
-        currentBmr: [],
+        currentBmr: 1,
     },
-    // dailyCal: {
-    //     protein: '',
-    //     fat: '',
-    //     carbo: '',
-    //     totalCal: ''
-    // }
+
 }
 
 const bmrFormReducer = (state = initialState.bmrForm, action) => {
@@ -50,6 +46,7 @@ const bmrFormReducer = (state = initialState.bmrForm, action) => {
             return state
     }
 }
+
 const currentBmrReducer = (state = initialState.bmr, action) => {
     switch (action.type) {
         case REQUEST_DATA:
@@ -61,7 +58,7 @@ const currentBmrReducer = (state = initialState.bmr, action) => {
             return {
                 ...state,
                 isFetching: false,
-                currentBmr: action.currentBmr,
+                currentBmr: action.currentBmr.bmrResult,
             }
         case RECEIVE_DATA_FAILED:
             return {

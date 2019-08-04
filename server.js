@@ -18,16 +18,17 @@ mongoose.connect(dbUrl, dbErr => {
 
     // POSTリクエストに対処
     app.post('/api/bmrs', (request, response) => {
-        const { height, age, weight, sex } = request.body  // 送られてきた名前と年齢を取得
-
+        const { bmrResult } = request.body
         new CurrentBmr({
-            height,
-            age,
-            weight,
-            sex
+            bmrResult
         }).save(err => {
             if (err) response.status(500)
-            else response.status(200).send(`bmr was successfully created.`)
+            else {
+                CurrentBmr.find({}, (findErr, CurrentBmr) => {
+                    if (findErr) response.status(500).send()
+                    else response.status(200).send(CurrentBmr)
+                })
+            }
         })
     })
 
@@ -38,27 +39,15 @@ mongoose.connect(dbUrl, dbErr => {
         })
     })
 
+    // ここでcurrentBmrの値を変更する
     app.put('/api/bmrs', (request, response) => {
-        const { id } = request.body  // updateするキャラクターのidをリクエストから取得
-        CurrentBmr.findByIdAndUpdate(id, { $inc: { "age": 1 } }, err => {
+        const { id } = request.body
+        CurrentBmr.findByIdAndUpdate(id, err => {
             if (err) response.status(500).send()
             else {  // updateに成功した場合、すべてのデータをあらためてfindしてクライアントに送る
                 CurrentBmr.find({}, (findErr, CurrentBmr) => {
                     if (findErr) response.status(500).send()
                     else response.status(200).send(CurrentBmr)
-                })
-            }
-        })
-    })
-
-    app.delete('/api/bmrs', (request, response) => {
-        const { id } = request.body
-        CurrentBmr.findByIdAndRemove(id, err => {
-            if (err) response.status(500).send()
-            else {
-                CurrentBmr.find({}, (findErr, currentBmr) => {
-                    if (findErr) response.status(500).send()
-                    else response.status(200).send(currentBmr)
                 })
             }
         })

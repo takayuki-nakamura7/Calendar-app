@@ -1,30 +1,41 @@
 import React from 'react'
 import axios from 'axios'
-
 import {
-    changeWeight, changeAge, changeHeight, changeSex, initializeForm
+    changeWeight, changeAge, changeHeight, changeSex, initializeForm, requestData, receiveDataSuccess, receiveDataFailed
+
 } from '../actions'
 
 
 const BmrForm = ({ store }) => {
     const { weight, age, height, sex } = store.getState().form  // storeからフォームの内容を取得
+    const { currentBmr } = store.getState().currentBmr
     const handleSubmit = e => {
         e.preventDefault()    // フォームsubmit時のデフォルトの動作を抑制
-
+        store.dispatch(requestData())
+        let bmrResult;
+        if (sex === "man") {
+            bmrResult = 10 * weight + 6.25 * height - 5 * age + 5;
+        }
+        else {
+            bmrResult = 10 * weight + 6.25 * height - 5 * age - 161;
+        }
         axios.post('/api/bmrs', {
-            weight,
-            age,
-            height,
-            sex
-        })  // キャラクターの名前、年齢からなるオブジェクトをサーバーにPOST
+            bmrResult
+        })  // bmrResultをサーバーにPOST
             .then(response => {
-                console.log(response)  // 後で行う動作確認のためのコンソール出力
+                console.log('what is the response' + response)  // 後で行う動作確認のためのコンソール出力
                 store.dispatch(initializeForm())  // submit後はフォームを初期化
+                const currentBmr = response.data
+                store.dispatch(receiveDataSuccess(currentBmr[0].bmrResult))
             })
             .catch(err => {
                 console.error(new Error(err))
+                store.dispatch(receiveDataFailed())
+
             })
     }
+
+
     return (
         <div>
             <form onSubmit={e => handleSubmit(e)}>
@@ -42,7 +53,6 @@ const BmrForm = ({ store }) => {
                 </label>
                 <label>
                     性別:
-                    {/* <input value={sex} onChange={e => store.dispatch(changeSex(e.target.value))} /> */}
                     <label>男性
                         <input type="radio" name="sex" id="man" value='man' onChange={e => store.dispatch(changeSex(e.target.value))} />
                     </label>
@@ -50,7 +60,7 @@ const BmrForm = ({ store }) => {
                         <input type="radio" name="sex" id="woman" value='woman' onChange={e => store.dispatch(changeSex(e.target.value))} />
                     </label>
                 </label>
-                <button type="submit">submit</button>
+                {currentBmr === 1 ? <button type="submit">submit</button> : ''}
             </form>
         </div>
     )

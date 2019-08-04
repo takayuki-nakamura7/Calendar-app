@@ -5,10 +5,7 @@ mongoose.Promise = global.Promise
 //  スキーマの作成
 //  今回保存したいドキュメントはsex(String),age(Number)height(Number),weight(Number)の4つのフィールドを持つ
 const CurrentBmrSchema = new mongoose.Schema({
-    height: Number,
-    age: Number,
-    weight: Number,
-    sex: String
+    bmrResult: Number
 })
 
 // モデルの作成
