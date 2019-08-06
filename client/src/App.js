@@ -3,12 +3,12 @@ import "./App.css";
 import Calendar from "./Components/Calendar/Calendar";
 import BmrForm from "./Components/BmrForm";
 import DisplayBmr from "./Components/DisplayBmr";
-import DisplayCal from "./Components/DisplayCal";
+// import DisplayCal from "./Components/DisplayCal";
 import axios from 'axios'
 import {
   requestData, receiveDataSuccess, receiveDataFailed
 } from './actions'
-import DailyCalForm from "./Components/DailyCalForm";
+// import DailyCalForm from "./Components/DailyCalForm";
 
 
 class App extends React.Component {
@@ -51,8 +51,7 @@ class App extends React.Component {
           <BmrForm store={this.props.store} />
           <DisplayBmr store={this.props.store} />
           {/* <DailyCalForm />
-          <DisplayCal store={this.state.dailyCal} />
-          {console.log('これはなに' + this.state.dailyCal)} */}
+          <DisplayCal store={this.state.dailyCal} /> */}
         </header>
         <main>
           <Calendar />

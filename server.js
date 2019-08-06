@@ -61,9 +61,9 @@ mongoose.connect(dbUrl, dbErr => {
     })
 
     app.get('/api/dailyCal', (request, response) => {
-        DailyCal.find({}, (err, CurrentBmr) => {  // 取得したドキュメントをクライアント側と同じくcurrentBmrと命名
+        DailyCal.find({}, (err, CurrentBmr) => {
             if (err) response.status(500).send()
-            else response.status(200).send(CurrentBmr)  // CurrentBmrをレスポンスとして送り返す
+            else response.status(200).send(CurrentBmr)
         })
     })
 
