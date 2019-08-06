@@ -30,17 +30,17 @@ class App extends React.Component {
         store.dispatch(receiveDataFailed())
       })
 
-    axios.get('/api/dailyCal')
-      .then(response => {
-        const dailyCal = response.data[0].dailyCal
-        console.log(dailyCal)
-        this.setState({
-          dailyCal: dailyCal
-        })
-      })
-      .catch(err => {
-        console.error(new Error(err))
-      })
+    // axios.get('/api/dailyCal')
+    //   .then(response => {
+    //     const dailyCal = response.data[0].dailyCal
+    //     console.log(dailyCal)
+    //     this.setState({
+    //       dailyCal: dailyCal
+    //     })
+    //   })
+    //   .catch(err => {
+    //     console.error(new Error(err))
+    //   })
   }
 
 

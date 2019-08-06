@@ -36,32 +36,32 @@ const BmrForm = ({ store }) => {
             })
     }
 
-    const handleSubmitToEdit = e => {
-        e.preventDefault()    // フォームsubmit時のデフォルトの動作を抑制
-        store.dispatch(requestData())
-        let bmrResult;
-        if (sex === "man") {
-            bmrResult = 10 * weight + 6.25 * height - 5 * age + 5;
-        }
-        else {
-            bmrResult = 10 * weight + 6.25 * height - 5 * age - 161;
-        }
-        console.log(bmrResult)
-        axios.put('/api/currentBmr', {
-            bmrResult
-        })  // bmrResultをサーバーにPOST
-            .then(response => {
-                console.log('what is the response' + response)  // 後で行う動作確認のためのコンソール出力
-                store.dispatch(initializeForm())  // submit後はフォームを初期化
-                const currentBmr = response.data
-                store.dispatch(receiveDataSuccess(currentBmr[0].bmrResult))
-            })
-            .catch(err => {
-                console.error(new Error(err))
-                store.dispatch(receiveDataFailed())
+    // const handleSubmitToEdit = e => {
+    //     e.preventDefault()    // フォームsubmit時のデフォルトの動作を抑制
+    //     store.dispatch(requestData())
+    //     let bmrResult;
+    //     if (sex === "man") {
+    //         bmrResult = 10 * weight + 6.25 * height - 5 * age + 5;
+    //     }
+    //     else {
+    //         bmrResult = 10 * weight + 6.25 * height - 5 * age - 161;
+    //     }
+    //     console.log(bmrResult)
+    //     axios.put('/api/currentBmr', {
+    //         bmrResult
+    //     })  // bmrResultをサーバーにPOST
+    //         .then(response => {
+    //             console.log('what is the response' + response)  // 後で行う動作確認のためのコンソール出力
+    //             store.dispatch(initializeForm())  // submit後はフォームを初期化
+    //             const currentBmr = response.data
+    //             store.dispatch(receiveDataSuccess(currentBmr[0].bmrResult))
+    //         })
+    //         .catch(err => {
+    //             console.error(new Error(err))
+    //             store.dispatch(receiveDataFailed())
 
-            })
-    }
+    //         })
+    // }
 
     const closeButton = e => {
         document.getElementById("calorieTable").style.display = "none";
